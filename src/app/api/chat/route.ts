@@ -3,11 +3,14 @@ import {type Messages, streamChat} from "~/lib/openai/stream";
 
 export const runtime = "edge";
 
-export async function POST(req: Request) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+interface RequestWithJSON extends Request {
+  json: () => Promise<{messages: Messages}>
+}
+
+export async function POST(req: RequestWithJSON) {
   const { messages } = await req.json();
 
-  const res = await streamChat(messages as Messages);
+  const res = await streamChat(messages);
 
   // Convert to stream and return
   const stream = OpenAIStream(res);
