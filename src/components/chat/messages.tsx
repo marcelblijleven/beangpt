@@ -37,10 +37,6 @@ export function ChatMessages({messages}: MessagesProps) {
         }
         prev.push(<ChatMessage key={idx} message={curr} />)
 
-        // if (idx !== messages.length - 1) {
-        //   prev.push(<Separator key={`${idx}-sep`} />)
-        // }
-
         return prev;
       }, [])}
     </div>
